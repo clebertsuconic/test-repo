@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     24 August 2012 12:50:43                                                        
+
+     Test case for JIRA HornetQ-1017   
+                   
+     tomr                                                                
+     ====================================================================== -->
+<project name="extremeRep" default="default" basedir="." >
+    <description>
+            Reproducer for MDBs, paging and multiple subscriptions with filters
+    </description>
+	
+	<property environment="env" />
+	<property name="as.home" value="${env.JBOSS_HOME}"/>
+	<property file="${basedir}/build.properties"/>
+	
+	<property name="build.dir"   value="${basedir}/build/classes"/>
+	<property name="dist.dir"    value="${basedir}/dist"/>
+	<property name="src.dir"     value="${basedir}/src"/>
+	<property name="log.dir"     value="${basedir}/log"/>
+	<property name="log.file" 	 value="${ant.project.name}.log"/>
+	<property name="err.file" 	 value="${ant.project.name}-error.log"/>
+	<property name="jar.file" 	 value="${ant.project.name}.jar"/>
+
+	
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+    <target name="default" depends="validate-jboss, init" description="Simple application with persistence">
+        <antcall target="compile"></antcall>
+    	<antcall target="jar"></antcall>
+    </target>
+	
+	<target name="validate-jboss">
+    	<fail unless="env.JBOSS_HOME" message="JBOSS_HOME environment variable not set! Set it and try again."/>
+    
+    </target>
+   
+	<target name="env" description="Check for correct environment.">
+	        
+		<echo message="Running target env."/>
+
+	    <condition property="isDarwin" description="Sets isDarwin=true if running on OS X">
+	    	<and>
+	        	<os family="unix"/>
+	            <os name="Mac OS X"/>
+	        </and>
+	    </condition>
+
+	    <condition property="isLinux" description="Sets isLinux=true if running on linux">
+	    	<and>
+	        	<os family="unix"/>
+	            <os name="Linux"/>
+	        </and>
+	    </condition>
+		
+	    <echo message="======================"/>
+		<echo message="ant.project.name = ${ant.project.name}" />
+		<echo message="basedir = ${basedir}" />
+	    <echo message="os.name = ${os.name}"/>
+	    <echo message="os.arch = ${os.arch}"/>
+	    <echo message="os.ver = ${os.version}"/>
+	    <echo message="JBOSS_HOME = ${as.home}"/>
+	    <echo message="as type = ${as.type}" />
+	    <echo message="JBoss ver = ${as.ver}"/>
+	    <echo message="JBoss profile = ${as.profile}"/>
+	    <echo message="Java ver = ${java.version}"/>
+	    <echo message="Java Home = ${java.home}"/>
+	    <echo message="Java Vendor = ${java.vendor}"/>
+	    <echo message="======================"/>
+
+	</target>
+	
+	<target name="init" description="Creates build directories.">
+
+	        <mkdir dir="${build.dir}"/>
+	        <mkdir dir="${dist.dir}"/>
+	        <mkdir dir="${log.dir}"/>
+	        <tstamp description="Generates time stamp.">
+	            <format property="timestamp" pattern="d MMM yyyy HH:mm:ss" locale="en,UK"/>
+	        </tstamp>
+
+	</target>
+	
+	
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: depends                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="compile" depends="env, validate-jboss" description="Compiles Java source code">
+    	<echo message="Compiling source code for JBoss ver 5."/>
+
+    	<path id="compilation.classpath" >
+    		<fileset dir="${as.home}" includes="**/*.jar"/>
+    	</path>
+    	<javac srcdir="${src.dir}" destdir="${build.dir}" debug="on">
+    		<classpath refid="compilation.classpath"/>
+    	</javac>
+    	
+    </target>
+	
+
+	<target name="jar" description="Builds application jar file.">
+		
+		<copy todir="${build.dir}/META-INF">
+			<fileset dir="${src.dir}/META-INF"/>
+		</copy>
+		
+		<copy todir="${build.dir}/resources">
+			<fileset dir="${src.dir}/resources" />
+		</copy>
+		
+		<jar destfile="${dist.dir}/${jar.file}" >
+			<fileset dir="${build.dir}" />
+		</jar>
+		
+	</target>
+	
+
+	<target name="clean" description="Cleans up directories">
+		<delete dir="${build.dir}"/>
+		<delete dir="${log.dir}"/>
+		<delete dir="${dist.dir}"/>
+	</target>
+	
+</project>

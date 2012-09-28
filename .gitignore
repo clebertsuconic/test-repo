@@ -1,0 +1,14 @@
+#idea files
+# compilation from native
+*/bin
+*/*/bin
+*.class
+*~
+*/build
+*/*/build
+
+*/dist
+*/*/dist
+
+*/log
+*/*/log
