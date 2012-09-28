@@ -106,10 +106,6 @@
 			<fileset dir="${src.dir}/META-INF"/>
 		</copy>
 		
-		<copy todir="${build.dir}/resources">
-			<fileset dir="${src.dir}/resources" />
-		</copy>
-		
 		<jar destfile="${dist.dir}/${jar.file}" >
 			<fileset dir="${build.dir}" />
 		</jar>
