@@ -27,7 +27,7 @@ import javax.jms.Topic;
         @ActivationConfigProperty(propertyName = "clientId", propertyValue = "MDB18"),
 		@ActivationConfigProperty(propertyName = "destination", propertyValue = "topic/testTopic"),
         @ActivationConfigProperty(propertyName = "maxSession", propertyValue = "15"),
-		@ActivationConfigProperty(propertyName = "messageSelector", propertyValue = "receiver=18"), })
+		@ActivationConfigProperty(propertyName = "messageSelector", propertyValue = "receiver=18") })
 @TransactionAttribute(value = TransactionAttributeType.REQUIRED)
 public class MDB18 implements MessageListener {
 	private static final AtomicInteger counter = new AtomicInteger(0);
