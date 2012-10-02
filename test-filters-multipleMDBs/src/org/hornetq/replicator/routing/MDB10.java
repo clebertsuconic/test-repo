@@ -38,31 +38,12 @@ public class MDB10 implements MessageListener {
 	private @Resource(mappedName = "java:/topic/testTopic")
 	Topic topic;
 	
-	
-
 	private @Resource MessageDrivenContext sessionContext;
 
 	@Override
 	public void onMessage(Message msg) {
-		int value = counter.incrementAndGet();
-		if (value % 1000 == 0)
-		{
-			System.out.println("Received " + value + " on " + this.getClass().getSimpleName());
-		}
 		
-		try {
-			Connection conn = connectionFactory.createConnection();
-			Session sess = conn.createSession(true, Session.SESSION_TRANSACTED);
-			MessageProducer prod = sess.createProducer(topic);
-			TextMessage outMessage = sess.createTextMessage("hello");
-			outMessage.setIntProperty("receiver=100", 100);
-			prod.send(outMessage);
-			conn.close();
-		} catch (JMSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			sessionContext.setRollbackOnly();
-		}
+		MDBUtil.msgReceived(counter, connectionFactory, sessionContext, topic, getClass());
 		
 	}
 }

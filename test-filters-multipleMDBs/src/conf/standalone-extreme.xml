@@ -238,6 +238,7 @@
         <subsystem xmlns="urn:jboss:domain:messaging:1.2">
             <hornetq-server>
                 <persistence-enabled>true</persistence-enabled>
+                <jmx-management-enabled>true</jmx-management-enabled>
                 <security-enabled>false</security-enabled>
                 <journal-file-size>102400</journal-file-size>
                 <journal-min-files>2</journal-min-files>

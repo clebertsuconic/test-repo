@@ -50,19 +50,21 @@ public class MDB30 implements MessageListener {
 			System.out.println("Received " + value + " on " + this.getClass().getSimpleName());
 		}
 		
-		try {
-			Connection conn = connectionFactory.createConnection();
-			Session sess = conn.createSession(true, Session.SESSION_TRANSACTED);
-			MessageProducer prod = sess.createProducer(topic);
-			TextMessage outMessage = sess.createTextMessage("hello");
-			outMessage.setIntProperty("receiver=100", 100);
-			prod.send(outMessage);
-			conn.close();
-		} catch (JMSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			sessionContext.setRollbackOnly();
-		}
+		System.out.println("Received " + value + " on " + this.getClass().getSimpleName());
+//	
+//		try {
+//			Connection conn = connectionFactory.createConnection();
+//			Session sess = conn.createSession(true, Session.SESSION_TRANSACTED);
+//			MessageProducer prod = sess.createProducer(topic);
+//			TextMessage outMessage = sess.createTextMessage("hello");
+//			outMessage.setIntProperty("receiver=100", 100);
+//			prod.send(outMessage);
+//			conn.close();
+//		} catch (JMSException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			sessionContext.setRollbackOnly();
+//		}
 		
 	}
 }

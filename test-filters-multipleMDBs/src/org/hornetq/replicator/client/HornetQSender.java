@@ -26,6 +26,30 @@ public class HornetQSender {
 			HornetQConnectionFactory factory = HornetQJMSClient.createConnectionFactoryWithoutHA(JMSFactoryType.CF, configuration);
 			Connection conn = factory.createConnection();
 			Session sess = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
+			
+			
+			Topic topic = HornetQJMSClient.createTopic("testTopic");
+			
+			MessageProducer prod = sess.createProducer(topic);
+			
+			StringBuffer buffer = new StringBuffer();
+			
+			for (int i = 0 ; i < 100; i++)
+			{
+				buffer.append(" ;flkaj df;lakjs df;lkadjs f;laskfj ads" + i);
+			}
+			
+			for (int i = 0 ; i < 5000; i++)
+			{
+				
+				TextMessage msg = sess.createTextMessage(buffer.toString());
+				msg.setIntProperty("receiver", i % 10);
+				prod.send(msg);
+			}
+
+			TextMessage msg = sess.createTextMessage(buffer.toString());
+			msg.setIntProperty("receiver", 30);
+			prod.send(msg);
 		}
 		catch (Throwable e)
 		{

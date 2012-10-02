@@ -26,7 +26,7 @@ public class MDB100 implements MessageListener {
 	@Override
 	public void onMessage(Message msg) {
 		int value = counter.incrementAndGet();
-		if (value % 1000 == 0)
+		if (value % 100 == 0)
 		{
 			System.out.println("Received " + value + " on " + this.getClass().getSimpleName());
 		}
