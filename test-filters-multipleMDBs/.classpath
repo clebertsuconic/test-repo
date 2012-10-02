@@ -5,5 +5,8 @@
 	<classpathentry kind="lib" path="lib/jboss-ejb-api_3.1_spec-1.0.2.Final.jar"/>
 	<classpathentry kind="lib" path="lib/jboss-jms-api_1.1_spec-1.0.1.Final.jar"/>
 	<classpathentry kind="lib" path="lib/jboss-transaction-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hornetq-core.jar"/>
+	<classpathentry kind="lib" path="lib/hornetq-jms.jar"/>
+	<classpathentry kind="lib" path="lib/netty.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
