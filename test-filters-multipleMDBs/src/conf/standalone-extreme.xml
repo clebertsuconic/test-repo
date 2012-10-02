@@ -270,17 +270,14 @@
                 </security-settings>
 
                 <address-settings>
-                    <address-setting match="#">
+                     <address-setting match="#">
                         <dead-letter-address>jms.queue.DLQ</dead-letter-address>
                         <expiry-address>jms.queue.ExpiryQueue</expiry-address>
                         <redelivery-delay>0</redelivery-delay>
-                        <max-size-bytes>10485760</max-size-bytes>
-                        <address-full-policy>BLOCK</address-full-policy>
-                        <message-counter-history-day-limit>10</message-counter-history-day-limit>
-                    </address-setting>
-                    <address-setting match="jms.topic.testTopic">
-                        <expiry-address>jms.queue.expiryQueue</expiry-address>
-                        <max-size-bytes>-1</max-size-bytes>
+                        <max-size-bytes>4194304</max-size-bytes>
+                        <page-size-bytes>104857</page-size-bytes>
+                        <address-full-policy>PAGE</address-full-policy>
+                        <message-counter-history-day-limit>2</message-counter-history-day-limit>
                     </address-setting>
                 </address-settings>
 

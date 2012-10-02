@@ -24,6 +24,8 @@ public class HornetQSender {
 			
 			TransportConfiguration configuration = new TransportConfiguration(NettyConnectorFactory.class.getName(), parameters);
 			HornetQConnectionFactory factory = HornetQJMSClient.createConnectionFactoryWithoutHA(JMSFactoryType.CF, configuration);
+			factory.setBlockOnDurableSend(false);
+			factory.setBlockOnAcknowledge(false);
 			Connection conn = factory.createConnection();
 			Session sess = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			
@@ -32,29 +34,30 @@ public class HornetQSender {
 			
 			MessageProducer prod = sess.createProducer(topic);
 			
-			StringBuffer buffer = new StringBuffer();
-			
-			for (int i = 0 ; i < 100; i++)
-			{
-				buffer.append(" ;flkaj df;lakjs df;lkadjs f;laskfj ads" + i);
-			}
-			
 			for (int i = 0 ; i < 5000; i++)
 			{
-				
-				TextMessage msg = sess.createTextMessage(buffer.toString());
+				BytesMessage msg = sess.createBytesMessage();
+				msg.writeBytes(new byte[25 * 1024]);
 				msg.setIntProperty("receiver", i % 10);
 				prod.send(msg);
 			}
 
-			TextMessage msg = sess.createTextMessage(buffer.toString());
+			BytesMessage msg = sess.createBytesMessage();
+			msg.writeBytes(new byte[25 * 1024]);
 			msg.setIntProperty("receiver", 30);
 			prod.send(msg);
+			
+			conn.close();
+			factory.close();
 		}
 		catch (Throwable e)
 		{
 			e.printStackTrace();
 		}
+		
+		
+		System.out.println("Finished test");
+		
 		
 	}
 }

@@ -50,7 +50,10 @@ public class MDB30 implements MessageListener {
 			System.out.println("Received " + value + " on " + this.getClass().getSimpleName());
 		}
 		
-		System.out.println("Received " + value + " on " + this.getClass().getSimpleName());
+		for (int i = 0; i < 100; i++)
+		{
+			System.out.println("************************************** Received " + value + " on " + this.getClass().getSimpleName());
+		}
 //	
 //		try {
 //			Connection conn = connectionFactory.createConnection();
