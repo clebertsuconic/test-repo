@@ -32,7 +32,15 @@ public class MDBUtil {
 		}
 		
 		try {
-			Thread.sleep(randomLong() % 1000);
+			if (value < 20)
+			{
+				System.out.println(clazz.getSimpleName() + " waiting 1 second on " + value);
+				Thread.sleep(1000);
+			}
+			else
+			{
+				// Thread.sleep(randomLong() % 100);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
