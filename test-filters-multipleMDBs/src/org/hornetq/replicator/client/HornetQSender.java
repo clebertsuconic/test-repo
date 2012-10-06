@@ -34,11 +34,12 @@ public class HornetQSender {
 			
 			MessageProducer prod = sess.createProducer(topic);
 			
-			for (int i = 0 ; i < 5000; i++)
+			for (int i = 0 ; i < 1000; i++)
 			{
 				BytesMessage msg = sess.createBytesMessage();
 				msg.writeBytes(new byte[25 * 1024]);
 				msg.setIntProperty("receiver", i % 10);
+				msg.setIntProperty("i", i);
 				prod.send(msg);
 			}
 

@@ -37,7 +37,7 @@ public class MDB1 implements MessageListener {
 	@Override
 	public void onMessage(Message msg) {
 		
-		MDBUtil.msgReceived(counter, connectionFactory, sessionContext, topic, getClass());
+		MDBUtil.msgReceived(msg, counter, connectionFactory, sessionContext, topic, getClass());
 		
 	}
 }

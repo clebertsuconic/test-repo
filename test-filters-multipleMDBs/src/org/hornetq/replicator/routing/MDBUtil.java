@@ -7,6 +7,7 @@ import javax.ejb.MessageDrivenContext;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
+import javax.jms.Message;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
@@ -24,15 +25,26 @@ public class MDBUtil {
 		else return value;
 	}
 	
-	public static void msgReceived(AtomicInteger counter, ConnectionFactory connectionFactory, MessageDrivenContext sessionContext, Topic topic, Class clazz) {
+	public static void msgReceived(Message msg, AtomicInteger counter, ConnectionFactory connectionFactory, MessageDrivenContext sessionContext, Topic topic, Class clazz) {
 		int value = counter.incrementAndGet();
 		if (value % 100 == 0)
 		{
 			System.out.println("Received " + value + " on " + clazz.getSimpleName());
 		}
 		
+		int i = 0;
+		try
+		{
+			i = msg.getIntProperty("i");
+		}
+		catch (Throwable e)
+		{
+			e.printStackTrace();
+			i = 1000;
+		}
+		
 		try {
-			if (value < 20)
+			if (i < 100)
 			{
 				System.out.println(clazz.getSimpleName() + " waiting 1 second on " + value);
 				Thread.sleep(1000);
