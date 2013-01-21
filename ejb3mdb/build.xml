@@ -2,8 +2,8 @@
 	<property name="src" location="src" />
 	<property name="build" location="antclasses" />
 	<property name="dist" location="dist" />
-	<property name="config" value="default" />
-	<property name="jboss.home" location="/home/jbertram/jboss/impl/HORNETQ-1025" />
+	<property name="config" value="all" />
+	<property name="jboss.home" location="/work/eap-52/build/output/jboss-5.2.0.Branch" />
 	<property name="deploy" location="${jboss.home}/server/${config}/deploy" />
 
 	<target name="init" depends="clean">
