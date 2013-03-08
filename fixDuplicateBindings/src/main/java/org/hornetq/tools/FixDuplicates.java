@@ -28,10 +28,7 @@ public class FixDuplicates
 
        List<RecordInfo> records = new LinkedList<RecordInfo>();
        List<PreparedTransactionInfo> preparedTransactions = new LinkedList<PreparedTransactionInfo>();
-       int messageCount = 0;
-       Map<Long, Integer> messageRefCounts = new HashMap<Long, Integer>();
-       int preparedMessageCount = 0;
-       Map<Long, Integer> preparedMessageRefCount = new HashMap<Long, Integer>();
+
        journal.load(records, preparedTransactions, new TransactionFailureCallback()
        {
 

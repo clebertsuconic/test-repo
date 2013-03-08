@@ -1,0 +1,16 @@
+build
+target
+
+#vim files
+*swp
+/eclipse-output
+/thirdparty
+/logs
+/ObjectStore
+/tmp
+/data
+/junit*.properties
+#idea files
+.idea/
+*.iml
+*.iws
